@@ -10,35 +10,20 @@ public class PlayerControl : MonoBehaviour {
     public float rollSpeed;
     private Rigidbody rigid;
     private Vector3 lift;
-    public float speedDecay;
-    public float tempMax;
-    
+    public float liftBooster;
 
 
 	// Use this for initialization
 	void Start () {
-        tempMax = speedMax;
         rigid = GetComponent<Rigidbody>();
 	}
 
     void Update()
     {
-        checkSpeed();
-        pitchSpeed = 0.8f - 0.3f * speed;
-        yawSpeed = 0.8f - 0.5f * speed;
         this.transform.position += transform.forward * speed;
         if (Input.GetKey(KeyCode.W))
-        { 
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                speed += (0.2f * Time.deltaTime); //boost should exceed max
-                //speedMax = speedMax * 1.5f;
-            } else {
-                speed += (0.2f * Time.deltaTime);
-                //speedMax = tempMax;
-
-            }
-            
+        {
+            speed += (0.1f * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.S))
         {
@@ -48,7 +33,7 @@ public class PlayerControl : MonoBehaviour {
         {
             if (speed > speedMin)
             {
-                speed -= (speedDecay * Time.deltaTime);
+                speed -= (0.2f * Time.deltaTime);
             }
         }
         //Control Yaw
